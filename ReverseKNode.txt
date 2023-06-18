@@ -1,0 +1,79 @@
+package Assignment13;
+
+class Node3 
+{
+    int data;
+    Node3 next;   
+    public Node3(int data) 
+    {
+        this.data = data;
+        this.next = null;
+    }
+}
+public class ReverseKNode 
+{
+    public static Node3 reverseKGroup(Node3 head, int k) 
+    {
+        if (head == null || k == 1) 
+        {
+            return head;
+        }
+        int count = 0;
+        Node3 dummy = new Node3(0);
+        dummy.next = head;
+        Node3 current = dummy;
+        Node3 prev = dummy;
+        while (current.next != null) 
+        {
+            current = current.next;
+            count++;
+            if (count % k == 0) 
+            {
+                prev = reverse(prev, current.next);
+                current = prev;
+            }
+        }
+        return dummy.next;
+    }
+    private static Node3 reverse(Node3 start, Node3 end) {
+        Node3 prev = start;
+        Node3 current = start.next;
+        Node3 next;
+        Node3 first = current; 
+        while (current != end) 
+        {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        start.next = prev; 
+        first.next = current; 
+        return first;
+    }
+    public static void printList(Node3 head) 
+    {
+        Node3 current = head;
+        while (current != null) 
+        {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) 
+    {
+        Node3 head = new Node3(1);
+        head.next = new Node3(2);
+        head.next.next = new Node3(2);
+        head.next.next.next = new Node3(4);
+        head.next.next.next.next = new Node3(5);
+        head.next.next.next.next.next = new Node3(6);
+        head.next.next.next.next.next.next = new Node3(7);
+        head.next.next.next.next.next.next.next = new Node3(8);
+        int k = 4;
+        Node3 reversed = reverseKGroup(head, k);
+        printList(reversed);
+    }
+}
+

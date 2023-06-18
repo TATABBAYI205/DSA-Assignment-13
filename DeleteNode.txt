@@ -1,0 +1,84 @@
+package Assignment13;
+
+class Node8 
+{
+    int data;
+    Node8 prev;
+    Node8 next;
+    public Node8(int data) 
+    {
+        this.data = data;
+        prev = null;
+        next = null;
+    }
+}
+public class DeleteNode 
+{
+	 Node8 head;
+	    public DeleteNode() 
+	    {
+	        head = null;
+	    }
+	    public Node8 deleteNodeAtPosition(Node8 head, int position) 
+	    {
+	        if (head == null) 
+	        {
+	            return null;
+	        }
+
+	        if (position == 1) 
+	        {
+	            Node8 newHead = head.next;
+	            if (newHead != null) 
+	            {
+	                newHead.prev = null;
+	            }
+	            return newHead;
+	        }
+	        Node8 current = head;
+	        int currentPosition = 1;
+	        while (current != null && currentPosition < position) 
+	        {
+	            current = current.next;
+	            currentPosition++;
+	        }
+
+	        if (current == null) 
+	        {
+	            return head; 
+	        }
+	        Node8 previous = current.prev;
+	        Node8 nextNode = current.next;
+	        if (previous != null) 
+	        {
+	            previous.next = nextNode;
+	        }
+	        if (nextNode != null) 
+	        {
+	            nextNode.prev = previous;
+	        }
+	        return head;
+	    }
+	    public void display(Node8 head)
+	    {
+	        Node8 current = head;
+	        while (current != null) 
+	        {
+	            System.out.print(current.data + " ");
+	            current = current.next;
+	        }
+	        System.out.println();
+	    }
+	    public static void main(String[] args) 
+	    {
+	        DeleteNode dn = new DeleteNode();
+	        dn.head = new Node8(1);
+	        dn.head.next = new Node8(3);
+	        dn.head.next.prev = dn.head;
+	        dn.head.next.next = new Node8(4);
+	        dn.head.next.next.prev = dn.head.next;
+	        int position = 3;
+	        dn.head = dn.deleteNodeAtPosition(dn.head, position);
+	        dn.display(dn.head);
+	    }
+}

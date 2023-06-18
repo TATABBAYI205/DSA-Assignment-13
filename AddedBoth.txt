@@ -1,0 +1,66 @@
+package Assignment13;
+
+class Node1 
+{
+    int data;
+    Node1 next;
+    public Node1(int data) 
+    {
+        this.data = data;
+        this.next = null;
+    }
+}
+public class AddedBoth 
+{
+    public static Node1 createNewList(Node1 list1, Node1 list2) 
+    {
+        Node1 ptr1 = list1;
+        Node1 ptr2 = list2;
+        Node1 newListHead = null;
+        Node1 newListTail = null;
+        while (ptr1 != null && ptr2 != null) 
+        {
+            int data1 = ptr1.data;
+            int data2 = ptr2.data;
+            int maxData = Math.max(data1, data2);
+            Node1 newNode = new Node1(maxData);
+            if (newListHead == null) 
+            {
+                newListHead = newNode;
+                newListTail = newNode;
+            } 
+            else
+            {
+                newListTail.next = newNode;
+                newListTail = newNode;
+            }
+            ptr1 = ptr1.next;
+            ptr2 = ptr2.next;
+        }
+        return newListHead;
+    }
+    public static void printList(Node1 head) 
+    {
+        Node1 current = head;
+        while (current != null) 
+        {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) 
+    {
+        Node1 list1 = new Node1(5);
+        list1.next = new Node1(2);
+        list1.next.next = new Node1(3);
+        list1.next.next.next = new Node1(8);
+        Node1 list2 = new Node1(1);
+        list2.next = new Node1(7);
+        list2.next.next = new Node1(4);
+        list2.next.next.next = new Node1(5);
+        Node1 newList = createNewList(list1, list2);
+        printList(newList);
+    }
+}
+
